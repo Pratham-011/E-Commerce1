@@ -5,6 +5,8 @@ import axios from 'axios'
 import {Checkbox,Radio} from 'antd'
 import { Prices } from '../components/Prices'
 import { useNavigate } from 'react-router-dom'
+import { useCart } from '../context/cart'
+import toast from 'react-hot-toast'
 const HomePage = () => {
   const [products,setProducts] = useState([])
   const [categories,setCategories] = useState([])
@@ -14,6 +16,7 @@ const HomePage = () => {
   const [page,setPage]  = useState(1)
   const [loading,setLoadig] = useState(false)
   const navigate = useNavigate()
+  const [cart,setCart] = useCart()
   // console.log(auth)
 
     //get all prodcuts
@@ -158,7 +161,14 @@ const filterProduct = async () => {
                   <p className="card-text"> {p.description.substring(0,30)}</p>
                   <p className="card-text">$ {p.price}</p>
                  <button className='btn btn-primary ms-1' onClick={() => navigate(`/product/${p.slug}`)} >More Details</button>
-                 <button className='btn btn-secondary ms-1'>Add To Cart </button>
+                 <button className='btn btn-secondary ms-1' onClick={() => {
+                  setCart([...cart,p])
+                  localStorage.setItem(
+                    "cart",
+                    JSON.stringify([...cart,p])
+                  )
+                  toast.success("Item Added t cart")
+                 }} >Add To Cart </button>
 
                 </div>
               </div>
