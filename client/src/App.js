@@ -24,7 +24,7 @@ import ProductDetail from "./pages/ProductDetail";
 import Categories from "./pages/Categories";
 import CategoryProduct from "./pages/CategoryProduct";
 import CartPage from "./pages/CartPage";
-
+import OrdersAdmin from "./pages/Admin/OrdersAdmin";
 function App() {
   return (
     <>
@@ -51,6 +51,8 @@ function App() {
           <Route path="admin/products" element={<Products />} />
           <Route path="admin/product/:slug" element={<UpdateProduct />} />
           <Route path="admin/users" element={<Users />} />
+          <Route path="admin/orders" element={<OrdersAdmin />} />
+
         </Route>
 
         <Route path="/register" element={<Register />} />

@@ -1,8 +1,18 @@
 import slugify from "slugify"
 import fs from 'fs'
 import productModel from "../models/productModel.js"
-import { categoryController } from "./categoryController.js"
 import categoryModel from "../models/categoryModel.js"
+import braintree from 'braintree'
+import orderModel from "../models/orderModel.js"
+
+//paymnet gateway
+var gateway = new braintree.BraintreeGateway({
+    environment: braintree.Environment.Sandbox,
+    merchantId: '82yhzw6vnrzwd2yh',
+    publicKey: 'jyrty5df7jdsfny9',
+    privateKey: '104bc1270ccb34c71c45acc26dc63e47',
+  });
+
 export const createProductController = async(req,res) =>{
     try {
         const {name,slug,description,price,category,quantity,shipping} = req.fields
@@ -301,5 +311,57 @@ export const productCategoryController = async(req,res) =>{
                     error,
                     message:'Error while getting  prodcut wise category' 
         }) 
+    }
+}
+
+// paymen getway api
+//token
+export const braintreeTokenController = async(req,res) =>{
+    try {
+        gateway.clientToken.generate({}, function (err, response) {
+            if (err) {
+                res.status(500).send(err)
+            }
+            else {
+                res.send(response)
+            }
+        } ) 
+    } catch (error) {
+        console.log(error)
+        
+    }
+}
+
+//payment
+export const braintreePaymentController = async(req,res) =>{
+    try {
+        const {cart, nonce} = req.body
+        let total = 0
+        cart.map((i) => {
+            total += i.price
+        })
+        let newTransaction = gateway.transaction.sale({
+            amount:total,
+             paymentMethodNonce:nonce,
+             options:{
+                submitForSettlement:true,
+             },
+        },
+        function(error,result){
+            if(result){
+                const order = new orderModel({
+                    products: cart,
+                    payment: result,
+                    buyer: req.user._id,
+                }).save()
+                res.json({ok:true})
+            }else{
+                res.status(500).send(error)
+            }
+        }
+    )
+    } catch (error) {
+        console.log(error)
+
     }
 }
