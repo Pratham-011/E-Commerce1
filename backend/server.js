@@ -7,6 +7,8 @@ import categoryRoute from './routes/categoryRoute.js'
 import productRoute from './routes/productRoute.js'
 import path from'path'
 import cors from 'cors'
+// import { fileURLToPath } from 'url';
+
 //configure env
 dotenv.config()
 
@@ -40,16 +42,16 @@ app.use("/api/v1/product",productRoute)
 
 
 //rest api
-// app.get('/', (req,res) => {
-//     res.send({
-//         message:'Welcome to ecommerce app'
-//     })
-// })
+app.get('/', (req,res) => {
+    res.send({
+        message:'Welcome to ecommerce app'
+    })
+})
 
 //aws change
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
-  });
+// app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+//   });
 
 
 //PORT
