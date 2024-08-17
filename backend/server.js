@@ -5,7 +5,7 @@ import connectDB from './config/db.js'
 import authRoutes from './routes/authRoute.js'
 import categoryRoute from './routes/categoryRoute.js'
 import productRoute from './routes/productRoute.js'
-
+import path from'path'
 import cors from 'cors'
 //configure env
 dotenv.config()
@@ -17,9 +17,20 @@ connectDB()
 const app = express()
 
 //middlewares
-app.use(cors())
+// app.use(cors())
 app.use(express.json())
 app.use(morgan('dev'))
+
+//aws
+const __dirname=path.dirname("")
+const buildpath = path.join(__dirname,"../client/build")
+app.use(express.static(buildpath))
+app.use(
+    cors({
+        "origin":"*",
+    })
+)
+//asw over
 
 
 //routes
