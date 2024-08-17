@@ -40,11 +40,17 @@ app.use("/api/v1/product",productRoute)
 
 
 //rest api
-app.get('/', (req,res) => {
-    res.send({
-        message:'Welcome to ecommerce app'
-    })
-})
+// app.get('/', (req,res) => {
+//     res.send({
+//         message:'Welcome to ecommerce app'
+//     })
+// })
+
+//aws change
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+  });
+
 
 //PORT
 const PORT = process.env.PORT || 8080
