@@ -76,6 +76,8 @@ import categoryRoute from './routes/categoryRoute.js';
 import productRoute from './routes/productRoute.js';
 import path from 'path';
 import cors from 'cors';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 // Configure environment variables
 dotenv.config();
@@ -91,8 +93,10 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // AWS configuration for static files
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const buildpath = path.join(__dirname, "../client/build");
+console.log(`Resolved build path: ${buildpath}`);
 app.use(express.static(buildpath));
 app.use(cors({ origin: "*" }));
 
@@ -103,7 +107,7 @@ app.use("/api/v1/product", productRoute);
 
 // Serve the frontend for all other routes
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+    res.sendFile(path.resolve(buildpath, 'index.html'));
 });
 
 // Root route
