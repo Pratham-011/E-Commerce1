@@ -7,3 +7,100 @@
     background-color: #ffdee9;
     background-image: linear-gradient(0deg, #ffdee9 0%,#b5fffc 100%);
   }
+
+  /* //gpt for Login */
+  /* AuthStyles.css */
+
+/* Base styling */
+body {
+  font-family: Arial, sans-serif;
+}
+
+.form-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.mb-3 {
+  margin-bottom: 1rem;
+}
+
+input.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+input.form-control:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+button.btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+button.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 576px) {
+  .form-container {
+      padding: 1rem;
+      margin: 1rem;
+  }
+
+  h1 {
+      font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+  .form-container {
+      padding: 1rem;
+      margin: 2rem auto;
+  }
+
+  h1 {
+      font-size: 1.375rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .form-container {
+      padding: 2rem;
+      margin: 2rem auto;
+  }
+
+  h1 {
+      font-size: 1.5rem;
+  }
+}
